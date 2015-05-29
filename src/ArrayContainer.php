@@ -7,7 +7,17 @@ use Traversable;
 
 class ArrayContainer extends AbstractContainer
 {
+    /**
+     * @var array
+     */
     private $items = [];
+
+    /**
+     * @param array $items
+     */
+    public function __construct($items=[]) {
+        $this->items = $items;
+    }
 
     /**
      * @param null $value

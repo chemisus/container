@@ -7,7 +7,18 @@ use Traversable;
 
 class ObjectContainer extends AbstractContainer
 {
+    /**
+     * @var \stdClass
+     */
     private $items;
+
+    /**
+     * @param null $items
+     */
+    public function __construct($items = null)
+    {
+        $this->items = $items ?: (object)[];
+    }
 
     /**
      * @param null $value
