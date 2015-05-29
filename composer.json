@@ -1,0 +1,20 @@
+{
+  "name": "chemisus/container",
+  "description": "PHP Container",
+  "minimum-stability": "dev",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Terrence Howard",
+      "email": "chemisus@gmail.com"
+    }
+  ],
+  "require": {
+    "phpunit/phpunit": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Chemisus\\Container\\": ["src", "test"]
+    }
+  }
+}
