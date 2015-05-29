@@ -85,14 +85,14 @@ interface Container extends Countable, IteratorAggregate, ArrayAccess
 
     /**
      * @param callable $callback
+     * @param bool|int $limit
      * @return mixed
      */
-    public function filter(callable $callback);
+    public function filter(callable $callback, $limit = false);
 
     /**
      * @param callable|null $callback
-     * @param int $limit
      * @return mixed
      */
-    public function first(callable $callback = null, $limit = 1);
+    public function first(callable $callback = null);
 }

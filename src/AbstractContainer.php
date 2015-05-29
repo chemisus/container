@@ -58,9 +58,10 @@ abstract class AbstractContainer implements Container
 
     /**
      * @param callable $callback
+     * @param bool|int $limit
      * @return mixed
      */
-    public function filter(callable $callback)
+    public function filter(callable $callback, $limit = false)
     {
         $container = $this->make();
 
@@ -69,6 +70,10 @@ abstract class AbstractContainer implements Container
 
             if (call_user_func($callback, $value, $key)) {
                 $container->put($key, $value);
+            }
+
+            if (is_int($limit) && count($container) >= $limit) {
+                break;
             }
         }
 
@@ -77,26 +82,15 @@ abstract class AbstractContainer implements Container
 
     /**
      * @param callable|null $callback
-     * @param int $limit
      * @return mixed
      */
-    public function first(callable $callback = null, $limit = 1)
+    public function first(callable $callback = null)
     {
-        $container = $this->make();
-
-        foreach ($this->keys() as $key) {
-            $value = $this->get($key);
-
-            if (call_user_func($callback, $value, $key)) {
-                $container->put($key, $value);
-            }
-
-            if (count($container) >= $limit) {
-                break;
-            }
+        if (is_callable($callback)) {
+            return $this->filter($callback, 1)->first();
         }
 
-        return $container;
+        return $this->get(array_shift($this->keys()->original()));
     }
 
     /**
