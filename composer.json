@@ -9,9 +9,12 @@
       "email": "chemisus@gmail.com"
     }
   ],
+  "require-dev": {
+    "phpunit/phpunit": "*"
+  },
   "autoload": {
     "psr-4": {
-      "Chemisus\\Container\\": ["src", "tests"]
+      "Chemisus\\Container\\": ["src", "test"]
     }
   }
 }
