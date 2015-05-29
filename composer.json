@@ -9,7 +9,7 @@
       "email": "chemisus@gmail.com"
     }
   ],
-  "require": {
+  "require-dev": {
     "phpunit/phpunit": "*"
   },
   "autoload": {
