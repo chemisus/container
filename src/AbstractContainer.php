@@ -205,7 +205,8 @@ abstract class AbstractContainer implements Container
             return $this->reverse()->filter($callback, 1)->last();
         }
 
-        return end($this->items());
+        $items = $this->items();
+        return end($items);
     }
 
     /**
