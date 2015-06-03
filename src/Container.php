@@ -77,6 +77,12 @@ interface Container extends Countable, IteratorAggregate, ArrayAccess
     public function map(callable $callback);
 
     /**
+     * @param string $method
+     * @return Container
+     */
+    public function each($method);
+
+    /**
      * @param mixed $initial
      * @param callable $callback
      * @return mixed
