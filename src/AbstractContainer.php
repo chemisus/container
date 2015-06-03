@@ -192,7 +192,8 @@ abstract class AbstractContainer implements Container
             return $this->filter($callback, 1)->first();
         }
 
-        return reset($this->items());
+        $items = $this->items();
+        return reset($items);
     }
 
     /**
