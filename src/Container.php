@@ -72,7 +72,7 @@ interface Container extends Countable, IteratorAggregate, ArrayAccess
 
     /**
      * @param callable $callback
-     * @return mixed
+     * @return Container
      */
     public function map(callable $callback);
 
@@ -92,7 +92,7 @@ interface Container extends Countable, IteratorAggregate, ArrayAccess
     /**
      * @param callable $callback
      * @param bool|int $limit
-     * @return mixed
+     * @return Container
      */
     public function filter(callable $callback, $limit = false);
 
