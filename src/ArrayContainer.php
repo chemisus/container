@@ -130,18 +130,4 @@ class ArrayContainer extends AbstractContainer
     {
         return count($this->items);
     }
-
-    /**
-     * @param string $method
-     * @return Container
-     */
-    public function each($method)
-    {
-        $args = func_get_args();
-        array_shift($args);
-
-        return $this->map(function ($item) use ($method, $args) {
-            return call_user_func_array([$item, $method], $args);
-        });
-    }
 }

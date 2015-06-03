@@ -27,7 +27,7 @@ abstract class AbstractContainer implements Container
 
     /**
      * @param callable $callback
-     * @return mixed
+     * @return Container
      */
     public function map(callable $callback)
     {
@@ -59,7 +59,7 @@ abstract class AbstractContainer implements Container
     /**
      * @param callable $callback
      * @param bool|int $limit
-     * @return mixed
+     * @return Container
      */
     public function filter(callable $callback, $limit = false)
     {
@@ -78,6 +78,20 @@ abstract class AbstractContainer implements Container
         }
 
         return $container;
+    }
+
+    /**
+     * @param string $method
+     * @return Container
+     */
+    public function each($method)
+    {
+        $args = func_get_args();
+        array_shift($args);
+
+        return $this->map(function ($item) use ($method, $args) {
+            return call_user_func_array([$item, $method], $args);
+        });
     }
 
     /**
