@@ -2,3 +2,4 @@
 container.iml
 vendor
 build
+composer.lock

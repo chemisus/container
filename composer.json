@@ -14,7 +14,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Chemisus\\Container\\": ["src", "test"]
+      "Chemisus\\Container\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Chemisus\\Container\\": ["tests", "stubs"]
     }
   }
 }
