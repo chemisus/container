@@ -17,6 +17,13 @@ class ArrayContainer extends AbstractContainer
         $this->items = $items;
     }
 
+    public static function reference(&$items = null)
+    {
+        $container = new ArrayContainer();
+        $container->items = &$items;
+        return $container;
+    }
+
     /**
      * @param array $items
      * @return $this
@@ -55,7 +62,13 @@ class ArrayContainer extends AbstractContainer
      */
     public function get($key)
     {
-        return $this->items[$key];
+        $value = $this->items[$key];
+
+        if (is_array($value)) {
+            return $this->reference($this->items[$key]);
+        }
+
+        return $value;
     }
 
     /**
