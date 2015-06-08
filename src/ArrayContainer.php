@@ -78,6 +78,10 @@ class ArrayContainer extends AbstractContainer
      */
     public function set($key, $value)
     {
+        if ($value instanceof Container) {
+            $value = $value->items();
+        }
+
         return $this->items[$key] = $value;
     }
 
