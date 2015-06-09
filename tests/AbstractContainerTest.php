@@ -108,7 +108,7 @@ class AbstractContainerTest extends PHPUnit_Framework_TestCase
         $counter = new Counter();
         $container = new ArrayContainer([$counter, $counter, $counter]);
         $actual = [0, 1, 2];
-        $this->assertEquals($actual, $container->each('increment')->values());
+        $this->assertEquals($actual, $container->each('increment')->values()->items());
     }
 
     /**
@@ -117,7 +117,7 @@ class AbstractContainerTest extends PHPUnit_Framework_TestCase
      */
     public function testOffset(Container $container)
     {
-        $this->assertEquals(['c', 'D', 'E'], $container->subset(2, 3)->values());
+        $this->assertEquals(['c', 'D', 'E'], $container->subset(2, 3)->values()->items());
     }
 
     /**
@@ -126,8 +126,8 @@ class AbstractContainerTest extends PHPUnit_Framework_TestCase
      */
     public function testMerge(Container $container)
     {
-        $this->assertEquals(['a', 'b', 'c', 'D', 'E', 'F', '999'], $container->merge(['999'])->values());
-        $this->assertEquals(['a', 'b', 'c', 'D', 'E', 'F'], $container->values());
+        $this->assertEquals(['a', 'b', 'c', 'D', 'E', 'F', '999'], $container->merge(['999'])->values()->items());
+        $this->assertEquals(['a', 'b', 'c', 'D', 'E', 'F'], $container->values()->items());
     }
 
     /**

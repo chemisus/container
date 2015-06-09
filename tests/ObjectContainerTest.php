@@ -4,7 +4,7 @@ namespace Chemisus\Container;
 
 use PHPUnit_Framework_TestCase;
 
-class ArrayContainerTest extends PHPUnit_Framework_TestCase
+class ObjectContainerTest extends PHPUnit_Framework_TestCase
 {
 
     /**
@@ -12,7 +12,7 @@ class ArrayContainerTest extends PHPUnit_Framework_TestCase
      */
     public function testMakeContainer()
     {
-        return new ArrayContainer(['a', 'b', 'c', 'd' => 'D', 'e' => 'E', 'f' => 'F']);
+        return container((object)['a', 'b', 'c', 'd' => 'D', 'e' => 'E', 'f' => 'F']);
     }
 
     /**
@@ -124,7 +124,7 @@ class ArrayContainerTest extends PHPUnit_Framework_TestCase
      */
     public function testItems(Container $container)
     {
-        $expect = [0 => 'a', 1 => 'b', 2 => 'c', 'd' => 'D', 'e' => 'E', 'f' => 'F'];
+        $expect = (object)[0 => 'a', 1 => 'b', 2 => 'c', 'd' => 'D', 'e' => 'E', 'f' => 'F'];
         $this->assertEquals($expect, $container->items());
     }
 }

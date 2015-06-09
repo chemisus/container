@@ -3,6 +3,7 @@
 use Chemisus\Container\ArrayContainer;
 use Chemisus\Container\Collection;
 use Chemisus\Container\Container;
+use Chemisus\Container\ObjectContainer;
 use Chemisus\Container\Storage;
 
 if (!function_exists('arr')) {
@@ -23,7 +24,11 @@ if (!function_exists('container')) {
      */
     function container($items = [])
     {
-        return new ArrayContainer($items);
+        if (is_array($items)) {
+            return new ArrayContainer($items);
+        }
+
+        return new ObjectContainer($items);
     }
 }
 
@@ -34,7 +39,7 @@ if (!function_exists('collection')) {
      */
     function collection($items = [])
     {
-        return new ArrayContainer($items);
+        return container($items);
     }
 }
 
@@ -45,6 +50,6 @@ if (!function_exists('storage')) {
      */
     function storage($items = [])
     {
-        return new ArrayContainer($items);
+        return container($items);
     }
 }

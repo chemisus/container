@@ -2,9 +2,7 @@
 
 namespace Chemisus\Container;
 
-use stdClass;
-
-class ArrayContainer extends AbstractContainer
+class ObjectContainer extends AbstractContainer
 {
     /**
      * @var array
@@ -16,14 +14,7 @@ class ArrayContainer extends AbstractContainer
      */
     public function __construct($items = [])
     {
-        $this->items = $items;
-    }
-
-    public static function reference(&$items = null)
-    {
-        $container = new ArrayContainer();
-        $container->items = &$items;
-        return $container;
+        $this->items = (object)$items;
     }
 
     /**
@@ -32,7 +23,7 @@ class ArrayContainer extends AbstractContainer
      */
     public function make($items = null)
     {
-        return new ArrayContainer((array)$items);
+        return new ObjectContainer($items);
     }
 
     /**
@@ -46,7 +37,7 @@ class ArrayContainer extends AbstractContainer
      */
     public function count()
     {
-        return count($this->items);
+        return count((array)$this->items);
     }
 
     /**
@@ -55,7 +46,7 @@ class ArrayContainer extends AbstractContainer
      */
     public function has($key)
     {
-        return array_key_exists($key, $this->items);
+        return property_exists($this->items, (string)$key);
     }
 
     /**
@@ -64,12 +55,17 @@ class ArrayContainer extends AbstractContainer
      */
     public function get($key)
     {
-        $value = $this->items[$key];
+        if (!property_exists($this->items, $key) && array_key_exists($key, (array)$this->items)) {
+            $items = (array)$this->items;
+            return $items[$key];
+        }
 
-        if ($value instanceof stdClass) {
-            return new ObjectContainer($value);
+        $value = $this->items->{$key};
+
+        if (is_object($value)) {
+            return $this->make($value);
         } else if (is_array($value)) {
-            return $this->reference($this->items[$key]);
+            return ArrayContainer::reference($this->items->{(string)$key});
         }
 
         return $value;
@@ -86,7 +82,7 @@ class ArrayContainer extends AbstractContainer
             $value = $value->items();
         }
 
-        return $this->items[$key] = $value;
+        return $this->items->{(string)$key} = $value;
     }
 
     /**
@@ -95,7 +91,7 @@ class ArrayContainer extends AbstractContainer
      */
     public function delete($key)
     {
-        unset($this->items[$key]);
+        unset($this->items->{(string)$key});
 
         return $this;
     }
@@ -105,7 +101,7 @@ class ArrayContainer extends AbstractContainer
      */
     public function keys()
     {
-        return $this->make(array_keys($this->items));
+        return container(array_keys((array)$this->items));
     }
 
     /**
@@ -113,7 +109,7 @@ class ArrayContainer extends AbstractContainer
      */
     public function values()
     {
-        return $this->make(array_values($this->items));
+        return container(array_values((array)$this->items));
     }
 
     /**
